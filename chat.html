@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Marketing Assistant</title>
+  <style>
+    /* Global Reset & Background */
+    body { 
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+      background: #f0f2f5; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    /* Chat Container */
+    #chat-container { 
+      width: 450px; 
+      max-width: 90%;
+      height: 600px;
+      background: #ffffff; 
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px; 
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .chat-header {
+      background: #007bff;
+      color: white;
+      padding: 20px;
+      font-weight: 600;
+      font-size: 1.1em;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Messages Area */
+    #messages { 
+      flex: 1;
+      overflow-y: auto; 
+      padding: 20px; 
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #f9f9fb;
+    }
+
+    /* Bubble Styles */
+    .msg {
+      max-width: 80%;
+      padding: 10px 15px;
+      border-radius: 18px;
+      font-size: 0.95em;
+      line-height: 1.4;
+    }
+
+    .user { 
+      align-self: flex-end; 
+      background: #007bff; 
+      color: white; 
+      border-bottom-right-radius: 2px;
+    }
+
+    .bot { 
+      align-self: flex-start; 
+      background: #e9ecef; 
+      color: #333; 
+      border-bottom-left-radius: 2px;
+    }
+
+    /* Input Area */
+    .input-area {
+      padding: 15px;
+      border-top: 1px solid #eee;
+      display: flex;
+      gap: 10px;
+      background: white;
+    }
+
+    input { 
+      flex: 1; 
+      padding: 12px; 
+      border: 1px solid #ddd; 
+      border-radius: 25px; 
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus { border-color: #007bff; }
+
+    button { 
+      padding: 0 20px; 
+      background: #007bff; 
+      color: white; 
+      border: none; 
+      border-radius: 25px; 
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    button:hover { background: #0056b3; }
+
+    /* Scrollbar styling */
+    #messages::-webkit-scrollbar { width: 6px; }
+    #messages::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+  </style>
+</head>
+<body>
+
+<div id="chat-container">
+  <div class="chat-header">Marketing Assistant</div>
+  <div id="messages">
+    <div class="msg bot">Hello! How can I help with your marketing strategy today?</div>
+  </div>
+  <div class="input-area">
+    <input id="messageInput" placeholder="Write a message..." onkeypress="handleKeyPress(event)" />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+async function sendMessage() {
+  const input = document.getElementById("messageInput");
+  const message = input.value.trim();
+  if (!message) return;
+
+  const messagesContainer = document.getElementById("messages");
+
+  // User Message
+  messagesContainer.innerHTML += `<div class="msg user">${message}</div>`;
+  input.value = "";
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+  try {
+    const response = await fetch("https://sanjida1264.app.n8n.cloud/webhook-test/marketing-chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: message })
+    });
+
+    const data = await response.json();
+
+    // Bot Response
+    messagesContainer.innerHTML += `<div class="msg bot">${data.reply || "Thinking..."}</div>`;
+  } catch (error) {
+    messagesContainer.innerHTML += `<div class="msg bot" style="color: red;">Error connecting to server.</div>`;
+  }
+
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Allow "Enter" key to send message
+function handleKeyPress(event) {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+}
+</script>
+
+</body>
+</html>

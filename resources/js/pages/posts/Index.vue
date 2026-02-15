@@ -2,6 +2,7 @@
 import { Head, router } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
+import FloatingChat from '@/components/FloatingChat.vue'
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -13,7 +14,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 defineProps<{
     posts: Array<any>,
-    isManager: boolean
+    isManager: boolean,
 }>()
 
 const approvePost = (id: string) => {
@@ -76,6 +77,8 @@ const deletePost = (id: string) => {
                 </tbody>
             </table>
         </div>
+
+        <FloatingChat />
 
     </AppLayout>
 </template>
