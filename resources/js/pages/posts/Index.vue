@@ -4,7 +4,6 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
 import FloatingChat from '@/components/FloatingChat.vue'
 
-
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Posts',
@@ -15,6 +14,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 defineProps<{
     posts: Array<any>,
     isManager: boolean,
+    userId: number
 }>()
 
 const approvePost = (id: string) => {
@@ -65,20 +65,13 @@ const deletePost = (id: string) => {
                                 Edit
                             </button>
 
-                            <button
-                                v-if="!isManager && post.status === 'pending_confirmation'"
-                                @click="deletePost(post.id)"
-                                class="bg-red-500 text-white px-3 py-1 rounded"
-                            >
-                                Delete
-                            </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <FloatingChat />
+        <FloatingChat :user-id="userId" />
 
     </AppLayout>
 </template>

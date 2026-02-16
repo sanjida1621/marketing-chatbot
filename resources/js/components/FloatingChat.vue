@@ -4,8 +4,16 @@ import { ref, nextTick } from 'vue'
 const isOpen = ref(false)
 const message = ref('')
 const messages = ref([
-    { type: 'bot', text: 'Hello! How can I help with your marketing strategy today?' }
+    { type: 'bot', 
+    text: 'Please follow this format for creating a post:\n\nCaption: Your post text here\nPlatforms: ["facebook", "linkedin"]\nScheduled Date: 16 February 2026\nScheduled Time: 9 AM\nAssets: ["https://example.com/photo.jpg"]'
+}
 ])
+
+const props = defineProps<{
+    userId: number
+}>()
+
+console.log("FloatingChat received userId:", props.userId)
 
 const toggleChat = () => {
     isOpen.value = !isOpen.value
@@ -15,10 +23,11 @@ const sendMessage = async () => {
     if (!message.value.trim()) return
 
     // Add user message to chat
+
     messages.value.push({ type: 'user', text: message.value })
+
     const userMessage = message.value
     message.value = ''
-
     await nextTick()
 
     try {
@@ -27,7 +36,10 @@ const sendMessage = async () => {
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMessage }) // <-- only message
+                body: JSON.stringify({
+                    message: userMessage,
+                    user_id: props.userId
+                }),
             }
         )
 

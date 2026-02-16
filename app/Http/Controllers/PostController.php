@@ -23,7 +23,8 @@ class PostController extends Controller
 
         return Inertia::render('posts/Index', [
             'posts' => $posts,
-            'isManager' => $user->hasRole('manager')
+            'isManager' => $user->hasRole('manager'),
+            'userId' => $user->id,
         ]);
     }
     public function approve(Post $post)
