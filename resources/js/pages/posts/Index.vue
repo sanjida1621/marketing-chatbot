@@ -51,7 +51,7 @@ const deletePost = (id: string) => {
 
                         <td class="p-2 text-center space-x-2">
                             <button
-                                v-if="isManager && post.status === 'pending_confirmation'"
+                                v-if="isManager && (post.status === 'pending_confirmation' || post.status === 'pending_approval')"
                                 @click="approvePost(post.id)"
                                 class="bg-green-500 text-white px-3 py-1 rounded"
                             >
@@ -71,7 +71,6 @@ const deletePost = (id: string) => {
             </table>
         </div>
 
-        <FloatingChat :user-id="userId" />
-
+        <FloatingChat v-if="!isManager" :userId="userId" />
     </AppLayout>
 </template>
