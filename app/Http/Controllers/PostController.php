@@ -112,8 +112,8 @@ class PostController extends Controller
             abort(403);
         }
 
-        if ($post->status !== 'pending_confirmation') {
-            abort(403);
+        if (!in_array($post->status, ['draft', 'pending']) && !$user->hasRole('manager')) {
+            abort(403, 'Only draft or pending posts can be deleted by general users.');
         }
 
         $post->delete();

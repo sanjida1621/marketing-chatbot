@@ -28,6 +28,11 @@ const editPost = (id: string) => {
 const deletePost = (id: string) => {
     router.delete(`/posts/${id}`)
 }
+
+const confirmDelete = (id: string) => {
+    if (!confirm('Are you sure you want to delete this post?')) return
+    router.delete(`/posts/${id}`, { preserveScroll: true })
+}
 </script>
 
 
@@ -93,7 +98,7 @@ const deletePost = (id: string) => {
                                 <span class="inline-block rounded px-1.5 py-0.5 text-xs font-medium"
                                     :class="{
                                         'bg-yellow-100 text-yellow-800': post.status === 'pending' || post.status === 'pending_approval',
-                                        'bg-green-100 text-green-800': post.status === 'published',
+                                        'bg-green-100 text-green-800': post.status === 'approved',
                                         'bg-gray-100 text-gray-800': post.status === 'draft'
                                     }"
                                 >
@@ -101,22 +106,38 @@ const deletePost = (id: string) => {
                                 </span>
                             </td>
 
-                            <td class="p-2 w-24 text-center space-x-1">
-                                <button
-                                    v-if="isManager && (post.status === 'pending' || post.status === 'pending_approval')"
-                                    @click="approvePost(post.id)"
-                                    class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs"
-                                >
-                                    Approve
-                                </button>
+                            <td class="p-2 w-24 text-center">
+                                <div class="flex items-center justify-center gap-2">
+                                    <button
+                                        v-if="isManager && (post.status === 'pending' || post.status === 'pending_approval')"
+                                        @click="approvePost(post.id)"
+                                        class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs"
+                                    >
+                                        Approve
+                                    </button>
 
-                                <button
-                                    v-if="!isManager && (post.status === 'draft' || post.status === 'pending')"
-                                    @click="editPost(post.id)"
-                                    class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs"
-                                >
-                                    Edit
-                                </button>
+                                    <template v-if="!isManager && (post.status === 'draft' || post.status === 'pending')">
+                                        <button
+                                            @click="editPost(post.id)"
+                                            class="inline-flex items-center justify-center h-8 w-8 rounded bg-blue-600 hover:bg-blue-700 transition-colors"
+                                            aria-label="Edit post"
+                                        >
+                                            <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M4 20h4.586a1 1 0 00.707-.293l9.414-9.414a1 1 0 000-1.414L15.414 4.293a1 1 0 00-1.414 0L4 14.293V20z" />
+                                            </svg>
+                                        </button>
+
+                                        <button
+                                            @click="confirmDelete(post.id)"
+                                            class="inline-flex items-center justify-center h-8 w-8 rounded bg-red-600 hover:bg-red-700 transition-colors"
+                                            aria-label="Delete post"
+                                        >
+                                            <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3" />
+                                            </svg>
+                                        </button>
+                                    </template>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

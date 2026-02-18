@@ -7,7 +7,7 @@ const message = ref('')
 const hasUserMessaged = ref(false)
 const messages = ref([
     { type: 'bot', 
-    text: 'Please follow this format for creating a post:\nCaption: Your post text here\nPlatforms: ["facebook", "linkedin"]\nScheduled Date: 16 February 2026\nScheduled Time: 9 AM\nAssets: ["https://example.com/photo.jpg"]'
+    text: 'Please follow this format for creating a post:\n\nCaption: Your post text here\nPlatforms: facebook, linkedin\nScheduled Date: 16 February 2026\nScheduled Time: 9 AM\nImage Url: https://example.com/photo.jpg'
 }
 ])
 

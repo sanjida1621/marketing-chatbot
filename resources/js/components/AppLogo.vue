@@ -5,7 +5,7 @@
     <div class="flex items-center gap-2">
         <div class="ml-1 grid flex-1 text-left text-sm">
             <span class="mb-0.5 truncate leading-tight font-semibold"
-                >Marketing Chatbot</span
+                >Social Media Marketing Assistant</span
             >
         </div>
     </div>
