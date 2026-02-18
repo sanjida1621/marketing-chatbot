@@ -21,6 +21,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/posts', [PostController::class, 'index'])
         ->name('posts.index');
 
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])
+        ->name('posts.edit');
+
+    Route::patch('/posts/{post}', [PostController::class, 'update'])
+        ->name('posts.update');
+
     Route::post('/posts/{post}/approve', [PostController::class, 'approve'])
         ->name('posts.approve');
 

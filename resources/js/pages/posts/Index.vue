@@ -21,6 +21,10 @@ const approvePost = (id: string) => {
     router.post(`/posts/${id}/approve`)
 }
 
+const editPost = (id: string) => {
+    router.visit(`/posts/${id}/edit`)
+}
+
 const deletePost = (id: string) => {
     router.delete(`/posts/${id}`)
 }
@@ -78,8 +82,9 @@ const deletePost = (id: string) => {
                             </td>
 
                             <td class="p-2 w-32 text-xs text-gray-600">
-                                <div v-if="post.scheduled_time">
-                                    {{ new Date(post.scheduled_time).toLocaleString() }}
+                                <div v-if="post.scheduled_time" class="space-y-1">
+                                    <div>{{ new Date(post.scheduled_time).toLocaleDateString() }}</div>
+                                    <div>{{ new Date(post.scheduled_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }}</div>
                                 </div>
                                 <div v-else class="text-gray-400">Not scheduled</div>
                             </td>
@@ -106,7 +111,8 @@ const deletePost = (id: string) => {
                                 </button>
 
                                 <button
-                                    v-if="!isManager && post.status === 'pending'"
+                                    v-if="!isManager && (post.status === 'draft' || post.status === 'pending')"
+                                    @click="editPost(post.id)"
                                     class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs"
                                 >
                                     Edit
