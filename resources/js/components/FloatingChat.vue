@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref, nextTick } from 'vue'
+import { MessageCircle, X } from 'lucide-vue-next'
 
 const isOpen = ref(false)
 const message = ref('')
+const hasUserMessaged = ref(false)
 const messages = ref([
     { type: 'bot', 
-    text: 'Please follow this format for creating a post:\n\nCaption: Your post text here\nPlatforms: ["facebook", "linkedin"]\nScheduled Date: 16 February 2026\nScheduled Time: 9 AM\nAssets: ["https://example.com/photo.jpg"]'
+    text: 'Please follow this format for creating a post:\nCaption: Your post text here\nPlatforms: ["facebook", "linkedin"]\nScheduled Date: 16 February 2026\nScheduled Time: 9 AM\nAssets: ["https://example.com/photo.jpg"]'
 }
 ])
 
@@ -21,6 +23,12 @@ const toggleChat = () => {
 
 const sendMessage = async () => {
     if (!message.value.trim()) return
+
+    // Clear sample message on first user message
+    if (!hasUserMessaged.value) {
+        messages.value = []
+        hasUserMessaged.value = true
+    }
 
     // Add user message to chat
 
@@ -63,9 +71,11 @@ const sendMessage = async () => {
     <div class="fixed bottom-6 right-6 z-50">
         <button
             @click="toggleChat"
-            class="bg-blue-600 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-xl"
+            class="bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-colors"
+            :title="isOpen ? 'Close chat' : 'Open chat'"
         >
-            💬
+            <MessageCircle v-if="!isOpen" class="w-6 h-6" />
+            <X v-else class="w-6 h-6" />
         </button>
     </div>
 
@@ -73,7 +83,7 @@ const sendMessage = async () => {
     <div
         v-if="isOpen"
         class="fixed bottom-24 right-6 w-96 bg-white shadow-xl rounded-xl flex flex-col z-50"
-        style="height: 500px;"
+        style="height: 550px;"
     >
         <!-- Header -->
         <div class="bg-blue-600 text-white p-3 rounded-t-xl font-semibold text-center">
@@ -86,10 +96,10 @@ const sendMessage = async () => {
                 v-for="(msg, index) in messages"
                 :key="index"
                 :class="[
-                    'px-3 py-2 rounded-lg max-w-[80%]',
+                    'px-3 py-2 rounded-lg max-w-[80%] whitespace-pre-wrap',
                     msg.type === 'user'
-                        ? 'bg-blue-600 text-white ml-auto'
-                        : 'bg-gray-200 text-gray-800'
+                        ? 'bg-blue-600 text-white ml-auto text-sm'
+                        : 'bg-gray-200 text-gray-800 text-xs'
                 ]"
             >
                 {{ msg.text }}
@@ -97,19 +107,20 @@ const sendMessage = async () => {
         </div>
 
         <!-- Input -->
-        <div class="p-2 border-t flex gap-2">
-            <input
+        <div class="border-t p-3 flex flex-col gap-2">
+            <textarea
                 v-model="message"
-                @keyup.enter="sendMessage"
-                class="flex-1 border rounded-full px-3 py-1 outline-none"
+                class="flex-1 border rounded-lg px-3 py-2 outline-none resize-none min-h-24 text-sm"
                 placeholder="Write a message..."
             />
-            <button
-                @click="sendMessage"
-                class="bg-blue-600 text-white px-4 rounded-full"
-            >
-                Send
-            </button>
+            <div class="flex gap-2 items-center justify-end">
+                <button
+                    @click="sendMessage"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                >
+                    Send
+                </button>
+            </div>
         </div>
     </div>
 </template>

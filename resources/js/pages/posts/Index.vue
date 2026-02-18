@@ -39,7 +39,7 @@ const deletePost = (id: string) => {
                 <table class="w-full border">
                     <thead>
                         <tr class="bg-gray-100 text-xs text-gray-700">
-                            <th class="p-2 text-left w-28">Asset</th>
+                            <th class="p-2 text-left w-28">Image</th>
                             <th class="p-2 text-left min-w-40">Caption</th>
                             <th class="p-2 text-left w-24">Platform(s)</th>
                             <th class="p-2 text-left w-32">Scheduled</th>
@@ -55,7 +55,7 @@ const deletePost = (id: string) => {
                                     <img
                                         v-if="post.assets && JSON.parse(post.assets)?.[0]"
                                         :src="JSON.parse(post.assets)[0]"
-                                        alt="asset"
+                                        alt=""
                                         class="h-full w-full object-cover"
                                     />
                                     <div v-else class="flex h-full items-center justify-center text-xs text-gray-400">
