@@ -21,8 +21,8 @@ defineProps<{
 
 <template>
     <AuthBase
-        title="Log in to your account"
-        description="Enter your email and password below to log in"
+        title="Sign in"
+        description="Enter your credentials to access your account"
     >
         <Head title="Log in" />
 
@@ -94,7 +94,7 @@ defineProps<{
                     data-test="login-button"
                 >
                     <Spinner v-if="processing" />
-                    Log in
+                    Sign in
                 </Button>
             </div>
 

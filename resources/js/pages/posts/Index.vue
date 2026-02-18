@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, router } from '@inertiajs/vue3'
-import AppLayout from '@/layouts/AppLayout.vue'
+import AppHeaderLayout from '@/layouts/app/AppHeaderLayout.vue'
 import { type BreadcrumbItem } from '@/types'
 import FloatingChat from '@/components/FloatingChat.vue'
 
@@ -30,7 +30,7 @@ const deletePost = (id: string) => {
 <template>
     <Head title="Posts" />
 
-    <AppLayout :breadcrumbs="breadcrumbs">
+    <AppHeaderLayout :breadcrumbs="breadcrumbs">
 
         <div class="p-6">
             <h1 class="text-2xl font-bold mb-6">Posts</h1>
@@ -72,5 +72,5 @@ const deletePost = (id: string) => {
         </div>
 
         <FloatingChat v-if="!isManager" :userId="userId" />
-    </AppLayout>
+    </AppHeaderLayout>
 </template>
