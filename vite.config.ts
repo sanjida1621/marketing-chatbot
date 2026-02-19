@@ -12,7 +12,8 @@ export default defineConfig({
             refresh: true,
         }),
         tailwindcss(),
-        wayfinder({
+        // Only load wayfinder if we are NOT on Vercel
+        !process.env.VERCEL && wayfinder({
             formVariants: true,
         }),
         vue({
@@ -23,5 +24,5 @@ export default defineConfig({
                 },
             },
         }),
-    ],
+    ].filter(Boolean),
 });
