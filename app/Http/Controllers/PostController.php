@@ -29,9 +29,9 @@ class PostController extends Controller
     }
     public function approve(Post $post)
     {
-        if (!auth()->user()->hasRole('manager')) {
-            abort(403);
-        }
+        // if (!auth()->user()->hasRole('manager')) {
+        //     abort(403);
+        // }
 
         $response = Http::post('https://sanjida1264.app.n8n.cloud/webhook-test/approve-post', [
             'post_id' => $post->id,

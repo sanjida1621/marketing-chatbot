@@ -74,7 +74,7 @@ const confirmDelete = (id: string) => {
                             </td>
 
                             <td class="p-2 min-w-40">
-                                <div class="text-xs font-medium text-gray-900 break-words line-clamp-3">
+                                <div class="text-xs font-medium text-gray-900 break-words text-justify">
                                     {{ post.copy }}
                                 </div>
                             </td>
@@ -135,6 +135,13 @@ const confirmDelete = (id: string) => {
                                             <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3" />
                                             </svg>
+                                        </button>
+
+                                        <button
+                                            @click="approvePost(post.id)"
+                                            class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs"
+                                        >
+                                            Publish
                                         </button>
                                     </template>
                                 </div>
