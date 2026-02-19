@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\PostController::index
  * @see app/Http/Controllers/PostController.php:12
@@ -45,6 +45,41 @@ indexbf19ef06ce1388ecdeb1fea63820e3bd.head = (options?: RouteQueryOptions): Rout
     /**
 * @see \App\Http\Controllers\PostController::index
  * @see app/Http/Controllers/PostController.php:12
+ * @route '/api/posts'
+ */
+    const indexbf19ef06ce1388ecdeb1fea63820e3bdForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: indexbf19ef06ce1388ecdeb1fea63820e3bd.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::index
+ * @see app/Http/Controllers/PostController.php:12
+ * @route '/api/posts'
+ */
+        indexbf19ef06ce1388ecdeb1fea63820e3bdForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: indexbf19ef06ce1388ecdeb1fea63820e3bd.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\PostController::index
+ * @see app/Http/Controllers/PostController.php:12
+ * @route '/api/posts'
+ */
+        indexbf19ef06ce1388ecdeb1fea63820e3bdForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: indexbf19ef06ce1388ecdeb1fea63820e3bd.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    indexbf19ef06ce1388ecdeb1fea63820e3bd.form = indexbf19ef06ce1388ecdeb1fea63820e3bdForm
+    /**
+* @see \App\Http\Controllers\PostController::index
+ * @see app/Http/Controllers/PostController.php:12
  * @route '/posts'
  */
 const indexffe23c0a02d17880937946bd4b1439a4 = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -84,6 +119,42 @@ indexffe23c0a02d17880937946bd4b1439a4.head = (options?: RouteQueryOptions): Rout
     url: indexffe23c0a02d17880937946bd4b1439a4.url(options),
     method: 'head',
 })
+
+    /**
+* @see \App\Http\Controllers\PostController::index
+ * @see app/Http/Controllers/PostController.php:12
+ * @route '/posts'
+ */
+    const indexffe23c0a02d17880937946bd4b1439a4Form = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: indexffe23c0a02d17880937946bd4b1439a4.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::index
+ * @see app/Http/Controllers/PostController.php:12
+ * @route '/posts'
+ */
+        indexffe23c0a02d17880937946bd4b1439a4Form.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: indexffe23c0a02d17880937946bd4b1439a4.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\PostController::index
+ * @see app/Http/Controllers/PostController.php:12
+ * @route '/posts'
+ */
+        indexffe23c0a02d17880937946bd4b1439a4Form.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: indexffe23c0a02d17880937946bd4b1439a4.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    indexffe23c0a02d17880937946bd4b1439a4.form = indexffe23c0a02d17880937946bd4b1439a4Form
 
 export const index = {
     '/api/posts': indexbf19ef06ce1388ecdeb1fea63820e3bd,
@@ -151,6 +222,27 @@ approve64fba1e0aae352eca5631cb99bc65b22.post = (args: { post: string | { id: str
     /**
 * @see \App\Http\Controllers\PostController::approve
  * @see app/Http/Controllers/PostController.php:30
+ * @route '/api/posts/{post}/approve'
+ */
+    const approve64fba1e0aae352eca5631cb99bc65b22Form = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: approve64fba1e0aae352eca5631cb99bc65b22.url(args, options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::approve
+ * @see app/Http/Controllers/PostController.php:30
+ * @route '/api/posts/{post}/approve'
+ */
+        approve64fba1e0aae352eca5631cb99bc65b22Form.post = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: approve64fba1e0aae352eca5631cb99bc65b22.url(args, options),
+            method: 'post',
+        })
+    
+    approve64fba1e0aae352eca5631cb99bc65b22.form = approve64fba1e0aae352eca5631cb99bc65b22Form
+    /**
+* @see \App\Http\Controllers\PostController::approve
+ * @see app/Http/Controllers/PostController.php:30
  * @route '/posts/{post}/approve'
  */
 const approveea07b57d12c1cd38d59a9cec14c5c3f4 = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -205,6 +297,28 @@ approveea07b57d12c1cd38d59a9cec14c5c3f4.post = (args: { post: string | { id: str
     url: approveea07b57d12c1cd38d59a9cec14c5c3f4.url(args, options),
     method: 'post',
 })
+
+    /**
+* @see \App\Http\Controllers\PostController::approve
+ * @see app/Http/Controllers/PostController.php:30
+ * @route '/posts/{post}/approve'
+ */
+    const approveea07b57d12c1cd38d59a9cec14c5c3f4Form = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: approveea07b57d12c1cd38d59a9cec14c5c3f4.url(args, options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::approve
+ * @see app/Http/Controllers/PostController.php:30
+ * @route '/posts/{post}/approve'
+ */
+        approveea07b57d12c1cd38d59a9cec14c5c3f4Form.post = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: approveea07b57d12c1cd38d59a9cec14c5c3f4.url(args, options),
+            method: 'post',
+        })
+    
+    approveea07b57d12c1cd38d59a9cec14c5c3f4.form = approveea07b57d12c1cd38d59a9cec14c5c3f4Form
 
 export const approve = {
     '/api/posts/{post}/approve': approve64fba1e0aae352eca5631cb99bc65b22,
@@ -272,6 +386,37 @@ destroy1d260b89dbe6a70b86efaca1397e9cdb.delete = (args: { post: string | { id: s
     /**
 * @see \App\Http\Controllers\PostController::destroy
  * @see app/Http/Controllers/PostController.php:104
+ * @route '/api/posts/{post}'
+ */
+    const destroy1d260b89dbe6a70b86efaca1397e9cdbForm = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: destroy1d260b89dbe6a70b86efaca1397e9cdb.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'DELETE',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::destroy
+ * @see app/Http/Controllers/PostController.php:104
+ * @route '/api/posts/{post}'
+ */
+        destroy1d260b89dbe6a70b86efaca1397e9cdbForm.delete = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: destroy1d260b89dbe6a70b86efaca1397e9cdb.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'DELETE',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    destroy1d260b89dbe6a70b86efaca1397e9cdb.form = destroy1d260b89dbe6a70b86efaca1397e9cdbForm
+    /**
+* @see \App\Http\Controllers\PostController::destroy
+ * @see app/Http/Controllers/PostController.php:104
  * @route '/posts/{post}'
  */
 const destroyc395459ca515ed879b20f00485b90185 = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -326,6 +471,38 @@ destroyc395459ca515ed879b20f00485b90185.delete = (args: { post: string | { id: s
     url: destroyc395459ca515ed879b20f00485b90185.url(args, options),
     method: 'delete',
 })
+
+    /**
+* @see \App\Http\Controllers\PostController::destroy
+ * @see app/Http/Controllers/PostController.php:104
+ * @route '/posts/{post}'
+ */
+    const destroyc395459ca515ed879b20f00485b90185Form = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: destroyc395459ca515ed879b20f00485b90185.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'DELETE',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::destroy
+ * @see app/Http/Controllers/PostController.php:104
+ * @route '/posts/{post}'
+ */
+        destroyc395459ca515ed879b20f00485b90185Form.delete = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: destroyc395459ca515ed879b20f00485b90185.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'DELETE',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    destroyc395459ca515ed879b20f00485b90185.form = destroyc395459ca515ed879b20f00485b90185Form
 
 export const destroy = {
     '/api/posts/{post}': destroy1d260b89dbe6a70b86efaca1397e9cdb,
@@ -399,6 +576,41 @@ edit.head = (args: { post: string | { id: string } } | [post: string | { id: str
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\PostController::edit
+ * @see app/Http/Controllers/PostController.php:51
+ * @route '/posts/{post}/edit'
+ */
+    const editForm = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: edit.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::edit
+ * @see app/Http/Controllers/PostController.php:51
+ * @route '/posts/{post}/edit'
+ */
+        editForm.get = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\PostController::edit
+ * @see app/Http/Controllers/PostController.php:51
+ * @route '/posts/{post}/edit'
+ */
+        editForm.head = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    edit.form = editForm
 /**
 * @see \App\Http\Controllers\PostController::update
  * @see app/Http/Controllers/PostController.php:67
@@ -456,6 +668,38 @@ update.patch = (args: { post: string | { id: string } } | [post: string | { id: 
     url: update.url(args, options),
     method: 'patch',
 })
+
+    /**
+* @see \App\Http\Controllers\PostController::update
+ * @see app/Http/Controllers/PostController.php:67
+ * @route '/posts/{post}'
+ */
+    const updateForm = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PATCH',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::update
+ * @see app/Http/Controllers/PostController.php:67
+ * @route '/posts/{post}'
+ */
+        updateForm.patch = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PATCH',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    update.form = updateForm
 const PostController = { index, approve, destroy, edit, update }
 
 export default PostController

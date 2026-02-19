@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\PostController::index
  * @see app/Http/Controllers/PostController.php:12
@@ -42,6 +42,41 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\PostController::index
+ * @see app/Http/Controllers/PostController.php:12
+ * @route '/posts'
+ */
+    const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: index.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::index
+ * @see app/Http/Controllers/PostController.php:12
+ * @route '/posts'
+ */
+        indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: index.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\PostController::index
+ * @see app/Http/Controllers/PostController.php:12
+ * @route '/posts'
+ */
+        indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: index.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    index.form = indexForm
 /**
 * @see \App\Http\Controllers\PostController::edit
  * @see app/Http/Controllers/PostController.php:51
@@ -109,6 +144,41 @@ edit.head = (args: { post: string | { id: string } } | [post: string | { id: str
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\PostController::edit
+ * @see app/Http/Controllers/PostController.php:51
+ * @route '/posts/{post}/edit'
+ */
+    const editForm = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: edit.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::edit
+ * @see app/Http/Controllers/PostController.php:51
+ * @route '/posts/{post}/edit'
+ */
+        editForm.get = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\PostController::edit
+ * @see app/Http/Controllers/PostController.php:51
+ * @route '/posts/{post}/edit'
+ */
+        editForm.head = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    edit.form = editForm
 /**
 * @see \App\Http\Controllers\PostController::update
  * @see app/Http/Controllers/PostController.php:67
@@ -167,6 +237,37 @@ update.patch = (args: { post: string | { id: string } } | [post: string | { id: 
     method: 'patch',
 })
 
+    /**
+* @see \App\Http\Controllers\PostController::update
+ * @see app/Http/Controllers/PostController.php:67
+ * @route '/posts/{post}'
+ */
+    const updateForm = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PATCH',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::update
+ * @see app/Http/Controllers/PostController.php:67
+ * @route '/posts/{post}'
+ */
+        updateForm.patch = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PATCH',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    update.form = updateForm
 /**
 * @see \App\Http\Controllers\PostController::approve
  * @see app/Http/Controllers/PostController.php:30
@@ -225,6 +326,27 @@ approve.post = (args: { post: string | { id: string } } | [post: string | { id: 
     method: 'post',
 })
 
+    /**
+* @see \App\Http\Controllers\PostController::approve
+ * @see app/Http/Controllers/PostController.php:30
+ * @route '/posts/{post}/approve'
+ */
+    const approveForm = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: approve.url(args, options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::approve
+ * @see app/Http/Controllers/PostController.php:30
+ * @route '/posts/{post}/approve'
+ */
+        approveForm.post = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: approve.url(args, options),
+            method: 'post',
+        })
+    
+    approve.form = approveForm
 /**
 * @see \App\Http\Controllers\PostController::destroy
  * @see app/Http/Controllers/PostController.php:104
@@ -282,6 +404,38 @@ destroy.delete = (args: { post: string | { id: string } } | [post: string | { id
     url: destroy.url(args, options),
     method: 'delete',
 })
+
+    /**
+* @see \App\Http\Controllers\PostController::destroy
+ * @see app/Http/Controllers/PostController.php:104
+ * @route '/posts/{post}'
+ */
+    const destroyForm = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: destroy.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'DELETE',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\PostController::destroy
+ * @see app/Http/Controllers/PostController.php:104
+ * @route '/posts/{post}'
+ */
+        destroyForm.delete = (args: { post: string | { id: string } } | [post: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: destroy.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'DELETE',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    destroy.form = destroyForm
 const posts = {
     index: Object.assign(index, index),
 edit: Object.assign(edit, edit),
