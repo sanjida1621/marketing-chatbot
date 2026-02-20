@@ -1,22 +1,31 @@
 <?php
 
-// 1. Forward Vercel requests to the public directory
-// This ensures that assets in /public are reachable
+// Ensure /tmp directories exist for Vercel's read-only filesystem
+if (!is_dir('/tmp/storage/logs')) {
+    mkdir('/tmp/storage/logs', 0755, true);
+}
+if (!is_dir('/tmp/storage/framework/views')) {
+    mkdir('/tmp/storage/framework/views', 0755, true);
+}
+if (!is_dir('/tmp/storage/framework/cache')) {
+    mkdir('/tmp/storage/framework/cache', 0755, true);
+}
+if (!is_dir('/tmp/storage/framework/sessions')) {
+    mkdir('/tmp/storage/framework/sessions', 0755, true);
+}
+
 if (str_contains($_SERVER['REQUEST_URI'], '/build/') || str_contains($_SERVER['REQUEST_URI'], '/assets/')) {
     return false;
 }
 
-// 2. Standard Laravel 12 Bootstrap
 require __DIR__ . '/../vendor/autoload.php';
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-// 3. Handle the request
-$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+// ...rest of your code
+```
 
-$response = $kernel->handle(
-    $request = Illuminate\Http\Request::capture()
-);
+**2. Storage path needs to point to /tmp**
 
-$response->send();
-
-$kernel->terminate($request, $response);
+Add these to your Vercel environment variables:
+```
+STORAGE_PATH=/tmp/storage
