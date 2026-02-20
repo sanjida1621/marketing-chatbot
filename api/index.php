@@ -31,17 +31,18 @@ try {
 
     // Force paths to /tmp so Laravel doesn't try to write to the read-only disk
     $app->useStoragePath('/tmp/storage');
-    $app->usePublicPath(__DIR__ . '/../public');
+    $app->bind('path.public', function () {
+        return realpath(__DIR__ . '/../public');
+    });
 
     // Ensure we are getting the Kernel correctly
     $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
-    
+
     $request = Illuminate\Http\Request::capture();
     $response = $kernel->handle($request);
 
     $response->send();
     $kernel->terminate($request, $response);
-
 } catch (\Throwable $e) {
     http_response_code(500);
     echo '<pre>';
