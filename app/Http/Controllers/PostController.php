@@ -33,7 +33,7 @@ class PostController extends Controller
         //     abort(403);
         // }
 
-        $response = Http::post('https://sanjida1264.app.n8n.cloud/webhook-test/approve-post', [
+        $response = Http::post('https://sanjida1264.app.n8n.cloud/webhook/approve-post', [
             'post_id' => $post->id,
             'copy' => $post->copy,
             'platforms' => $post->platforms, // this is JSON array
