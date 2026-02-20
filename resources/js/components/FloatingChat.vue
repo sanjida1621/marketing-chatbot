@@ -40,7 +40,7 @@ const sendMessage = async () => {
 
     try {
         const response = await fetch(
-            'https://sanjida1264.app.n8n.cloud/webhook-test/marketing-chat',
+            'https://sanjida1264.app.n8n.cloud/webhook/marketing-chat',
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
