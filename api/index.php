@@ -26,17 +26,22 @@ ini_set('display_errors', '1');
 try {
     require __DIR__ . '/../vendor/autoload.php';
 
-    // Explicitly set the base path for Laravel 12
+    // Laravel 12: bootstrap/app.php returns an Application instance or Builder
     $app = require_once __DIR__ . '/../bootstrap/app.php';
 
+    // Force paths to /tmp so Laravel doesn't try to write to the read-only disk
     $app->useStoragePath('/tmp/storage');
     $app->usePublicPath(__DIR__ . '/../public');
+
+    // Ensure we are getting the Kernel correctly
     $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
-    $response = $kernel->handle(
-        $request = Illuminate\Http\Request::capture()
-    );
+    
+    $request = Illuminate\Http\Request::capture();
+    $response = $kernel->handle($request);
+
     $response->send();
     $kernel->terminate($request, $response);
+
 } catch (\Throwable $e) {
     http_response_code(500);
     echo '<pre>';
