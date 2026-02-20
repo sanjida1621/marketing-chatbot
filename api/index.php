@@ -44,10 +44,10 @@ try {
     $response->send();
     $kernel->terminate($request, $response);
 } catch (\Throwable $e) {
-    http_response_code(500);
-    echo '<pre>';
-    echo 'Error: ' . $e->getMessage() . "\n";
-    echo 'File: ' . $e->getFile() . ':' . $e->getLine() . "\n";
-    echo 'Trace: ' . $e->getTraceAsString();
-    echo '</pre>';
+    header("HTTP/1.1 500 Internal Server Error");
+    echo "<h1>Deployment Debug Error</h1>";
+    echo "<b>Message:</b> " . $e->getMessage() . "<br>";
+    echo "<b>File:</b> " . $e->getFile() . ":" . $e->getLine() . "<br>";
+    echo "<pre>" . $e->getTraceAsString() . "</pre>";
+    exit;
 }
