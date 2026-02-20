@@ -25,9 +25,11 @@ ini_set('display_errors', '1');
 
 try {
     require __DIR__ . '/../vendor/autoload.php';
+
+    // Explicitly set the base path for Laravel 12
     $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-    // ADD THIS LINE:
+    $app->useStoragePath('/tmp/storage');
     $app->usePublicPath(__DIR__ . '/../public');
     $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
     $response = $kernel->handle(
