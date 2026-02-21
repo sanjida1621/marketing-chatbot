@@ -20,13 +20,15 @@ export default defineConfig(async () => {
         }),
     ];
 
-    // Load wayfinder to generate routes
-    const { wayfinder } = await import('@laravel/vite-plugin-wayfinder');
-    plugins.push(
-        wayfinder({
-            formVariants: true,
-        })
-    );
+    // Only load wayfinder when not on Vercel to avoid requiring PHP during Vercel builds
+    if (!process.env.VERCEL) {
+        const { wayfinder } = await import('@laravel/vite-plugin-wayfinder');
+        plugins.push(
+            wayfinder({
+                formVariants: true,
+            })
+        );
+    }
 
     return {
         plugins: plugins.filter(Boolean),
