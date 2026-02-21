@@ -4,15 +4,15 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return "The server is alive. If you see this, the 302 is gone.";
-});
-
 // Route::get('/', function () {
-//     return auth()->check()
-//         ? redirect()->route('posts.index')
-//         : redirect()->route('login');
-// })->name('home');
+//     return "The server is alive. If you see this, the 302 is gone.";
+// });
+
+Route::get('/', function () {
+    return auth()->check()
+        ? redirect()->route('posts.index')
+        : redirect()->route('login');
+})->name('home');
 
 
 Route::get('dashboard', function () {
