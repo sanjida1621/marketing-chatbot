@@ -2,7 +2,9 @@ import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
-export default defineConfig(async () => {
+export default defineConfig(async ({ mode }) => {
+    const isProduction = mode === 'production';
+
     const plugins: any[] = [
         laravel({
             input: ['resources/js/app.ts'],
@@ -20,14 +22,19 @@ export default defineConfig(async () => {
         }),
     ];
 
-    // Only load wayfinder when not on Vercel to avoid requiring PHP during Vercel builds
-    if (!process.env.VERCEL) {
-        const { wayfinder } = await import('@laravel/vite-plugin-wayfinder');
-        plugins.push(
-            wayfinder({
-                formVariants: true,
-            })
-        );
+    // ONLY load wayfinder if we are NOT in production/Vercel
+    // This prevents the 'php: command not found' error during Vercel builds
+    if (!isProduction && !process.env.VERCEL) {
+        try {
+            const { wayfinder } = await import('@laravel/vite-plugin-wayfinder');
+            plugins.push(
+                wayfinder({
+                    formVariants: true,
+                })
+            );
+        } catch (e) {
+            console.warn('Wayfinder plugin not found or failed to load.');
+        }
     }
 
     return {
