@@ -4,6 +4,12 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+// Route::get('/', function () {
+//     // If we see this text, the 302 is GONE and the server is working.
+//     // If we still see a blank page, the problem is your Vercel/PHP config.
+//     return "Server is up. Redirecting to login would happen here."; 
+// });
+
 Route::get('/', function () {
     return auth()->check()
         ? redirect()->route('posts.index')
